@@ -15,16 +15,16 @@ The **Self-Balancing Vertical Robot** is a modular research platform featuring a
 
 ## 📑 Table of Contents
 
-[✨ Features](#-features)<br>
-[⚙️ Hardware (BOM)](#️-hardware-bom)<br>
-[🖨️ 3D Printing](#️-3d-printing)<br>
-[💻 Software](#-software)<br>
-[🧠 Algorithms](#-algorithms)<br>
-[🧪 Tests & Results](#-tests--results)<br>
-[🗺 Roadmap](#-roadmap)<br>
-[📚 References](#-references)<br>
-[🤝 Contribution & License](#-contribution--license)<br>
-[🔖 Citation](#-citation)
+- [✨ Features](#-features)<br>
+- [⚙️ Hardware (BOM)](#️-hardware-bom)<br>
+- [🖨️ 3D Printing](#️-3d-printing)<br>
+- [💻 Software](#-software)<br>
+- [🧠 Algorithms](#-algorithms)<br>
+- [🧪 Tests & Results](#-tests--results)<br>
+- [🗺 Roadmap](#-roadmap)<br>
+- [📚 References](#-references)<br>
+- [🤝 Contribution & License](#-contribution--license)<br>
+- [🔖 Citation](#-citation)
 
 ---
 
