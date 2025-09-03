@@ -1,15 +1,13 @@
-# self-balancing-vertical-robot
-
 # 🤖 Self-Balancing Vertical Robot
 
-![Hero Image](media/images/robot_front.jpg)
+![Hero Image](media/robot_front.jpg)
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/USERNAME/ProjectName/build.yml?branch=main)](https://github.com/USERNAME/ProjectName/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/BeratTezer/self-balancing-vertical-robot/build.yml?branch=main)](https://github.com/BeratTezer/self-balancing-vertical-robot/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Citation](https://img.shields.io/badge/Cite-APA%20Style-orange)](CITATION.cff)
 [![Docs](https://img.shields.io/badge/Docs-📚-purple)](docs/)
 
-**ProjectName**, 3D baskı gövdesi, düşük maliyetli elektronik bileşenleri ve açık kaynak yazılımı ile geliştirilmiş, **akademik araştırmalar** ve **endüstriyel prototipleme** için tasarlanmış modüler bir robot platformudur.
+The **Self-Balancing Vertical Robot** is a modular research platform featuring a 3D-printed chassis, low-cost electronic components, and open-source software, designed for both **academic research** and **industrial prototyping**.
 
 ---
 
