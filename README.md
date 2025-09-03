@@ -1,7 +1,7 @@
 # 🤖 Self-Balancing Vertical Robot
 
-<p align="center">
-  <img src="media/robot_front.jpg" alt="Front View of Robot" width="400"/>
+<p align="left">
+  <img src="media/robot_front.jpg" alt="Front View of Robot" width="600"/>
 </p>
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/BeratTezer/self-balancing-vertical-robot/build.yml?branch=main)](https://github.com/BeratTezer/self-balancing-vertical-robot/actions)
@@ -13,32 +13,31 @@ The **Self-Balancing Vertical Robot** is a modular research platform featuring a
 
 ---
 
-## 📑 İçindekiler
+## 📑 Table of Contents
 
-- [✨ Özellikler](#-özellikler)
-- [⚙️ Donanım (BOM)](#️-donanım-bom)
-- [🖨️ 3D Baskı](#️-3d-baskı)
-- [💻 Yazılım](#-yazılım)
-- [🧠 Algoritmalar](#-algoritmalar)
-- [🧪 Testler & Sonuçlar](#-testler--sonuçlar)
-- [🗺 Yol Haritası](#-yol-haritası)
-- [📚 Kaynakça](#-kaynakça)
-- [🤝 Katkı & Lisans](#-katkı--lisans)
-- [🔖 Atıf](#-atıf)
-
----
-
-## ✨ Özellikler
-
-- ⚡ ESP32 tabanlı kontrol sistemi
-- 🎥 Kamera + IMU ile sensör füzyonu
-- 🔋 2S Li-ion pil ile güçlendirilmiş modüler gövde
-- 🖨️ Tamamen 3D baskı parçalarla tasarlanabilir
-- 📡 WiFi üzerinden telemetri aktarımı
+[✨ Features](#-features)<br>
+[⚙️ Hardware (BOM)](#️-hardware-bom)<br>
+[🖨️ 3D Printing](#️-3d-printing)<br>
+[💻 Software](#-software)<br>
+[🧠 Algorithms](#-algorithms)<br>
+[🧪 Tests & Results](#-tests--results)<br>
+[🗺 Roadmap](#-roadmap)<br>
+[📚 References](#-references)<br>
+[🤝 Contribution & License](#-contribution--license)<br>
+[🔖 Citation](#-citation)
 
 ---
 
-## ⚙️ Donanım (BOM)
+## ✨ Features
+
+- ⚡ Arduino UNO-based control system
+- 🎥 IMU-based motion sensing and orientation estimation
+- 🔋 Modular chassis powered by a 2S Li-ion battery pack
+- 🖨️ Fully customizable using 3D-printed components
+
+---
+
+## ⚙️ Hardware (BOM)
 
 | Parça        | Adet | Açıklama      | Link                                    |
 | ------------ | ---- | ------------- | --------------------------------------- |
