@@ -1,6 +1,8 @@
 # 🤖 Self-Balancing Vertical Robot
 
-![Hero Image](media/robot_front.jpg)
+<p align="center">
+  <img src="media/robot_front.jpg" alt="Front View of Robot" width="400"/>
+</p>
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/BeratTezer/self-balancing-vertical-robot/build.yml?branch=main)](https://github.com/BeratTezer/self-balancing-vertical-robot/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
