@@ -1,8 +1,6 @@
 # 🤖 Self-Balancing Vertical Robot
 
-<p align="left">
-  <img src="media/robot_front.jpg" alt="Front View of Robot" width="600"/>
-</p>
+<img src="media/preview.GIF" alt="Demo GIF" width="800"/>
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/BeratTezer/self-balancing-vertical-robot/build.yml?branch=main)](https://github.com/BeratTezer/self-balancing-vertical-robot/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -91,6 +89,8 @@ software/
 - **Slew Limiter** → Prevents sudden jumps in motor commands by limiting step changes.
 - **Safety Cut-off** → Motors stop if tilt exceeds `±60°` (SAFE_TILT).
 
+<img src="media/test.GIF" alt="Test of the algorithm" width="800"/>
+
 ---
 
 ## 🧪 Tests & Results
@@ -99,6 +99,8 @@ software/
 - 🔋 **Battery life**: ~40 minutes continuous use
 - 🎯 **PID tilt error**: ±2°
 - 🛠️ Includes built-in **motor self-test** and **IMU calibration** routines (run on startup).
+
+<img src="media/failure.GIF" alt="Test" width="800"/>
 
 ---
 
@@ -121,3 +123,7 @@ This project is released under the **MIT License**.
 ## 🔖 Citation
 
 If you use this project in your work, please cite it according to the **CITATION.cff** file.
+
+---
+
+<img src="media/preview2.GIF" alt="Last Preview" width="800"/>
