@@ -25,22 +25,14 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install arduino:avr
 
-      - name: Install MPU6050 library
+      - name: Install MPU6050 deps (JRowberg I2Cdevlib)
         run: |
           arduino-cli lib update-index
-          arduino-cli lib install "electroniccats/MPU6050@^1.0.3"
-          # Eğer farklı kütüphane kullanıyorsan (örn. JRowberg):
-          # arduino-cli lib install --git-url https://github.com/jrowberg/i2cdevlib
+          arduino-cli lib install "I2Cdevlib-Core"
+          arduino-cli lib install "I2Cdevlib-MPU6050"
 
       - name: Compile sketch (Arduino UNO)
         run: |
-          # Ana dosyan bir .ino ise: klasörü hedef göster
-          # arduino-cli compile --fqbn arduino:avr:uno path/to/sketch_folder
-          #
-          # Repo yapına göre iki tip örnek veriyorum; birini seç:
-
-          # 1) README'deki gibi kökte .ino varsa, o klasörü ver:
-          # arduino-cli compile --fqbn arduino:avr:uno ./software
-
-          # 2) Kodların ./software/src altında ve .cpp ise, yine klasörü verebilirsin:
+          # .ino veya .cpp dosyaların hangi klasördeyse onu hedef göster.
+          # Sende kodlar ./software/src altında .cpp ise:
           arduino-cli compile --fqbn arduino:avr:uno ./software/src
