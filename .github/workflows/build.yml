@@ -25,14 +25,17 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install arduino:avr
 
-      - name: Install MPU6050 deps (JRowberg I2Cdevlib)
+      - name: Install MPU6050 library (Electronic Cats)
         run: |
           arduino-cli lib update-index
-          arduino-cli lib install "I2Cdevlib-Core"
-          arduino-cli lib install "I2Cdevlib-MPU6050"
+          arduino-cli lib install "MPU6050"
+
+      - name: Create wrapper sketch (if needed)
+        run: |
+          mkdir -p software/sketch
+          printf '#include "../src/main.cpp"\n' > software/sketch/sketch.ino
 
       - name: Compile sketch (Arduino UNO)
         run: |
-          # .ino veya .cpp dosyaların hangi klasördeyse onu hedef göster.
-          # Sende kodlar ./software/src altında .cpp ise:
-          arduino-cli compile --fqbn arduino:avr:uno ./software/src
+          # Oluşturduğumuz sketch klasörünü derliyoruz
+          arduino-cli compile --fqbn arduino:avr:uno ./software/sketch
