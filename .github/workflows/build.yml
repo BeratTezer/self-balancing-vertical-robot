@@ -28,8 +28,46 @@ jobs:
       - name: Install MPU6050 library
         run: |
           arduino-cli lib update-index
-          arduino-cli lib install "MPU6050" || arduino-cli lib install --git-url https://github.com/ElectronicCats/mpu6050
+          arduino-cli lib install "MPU6050" || \
+          arduino-cli lib install --git-url https://github.com/ElectronicCats/mpu6050
 
-      - name: Compile sketch (Arduino UNO)
+      - name: Find and normalize sketch, then compile
+        shell: bash
         run: |
-          arduino-cli compile --fqbn arduino:avr:uno ./software/main.ino
+          set -euo pipefail
+
+          # 1) Depodaki ilk .ino dosyasını bul
+          INO_PATH="$(git ls-files '*.ino' | head -n1 || true)"
+          if [[ -z "${INO_PATH}" ]]; then
+            echo "No .ino file found in repository."
+            exit 1
+          fi
+          echo "Found INO: ${INO_PATH}"
+
+          DIR="$(dirname "${INO_PATH}")"
+          FILE="$(basename "${INO_PATH}")"              # e.g. main.ino
+          BASE="${FILE%.*}"                             # e.g. main
+          FOLDER="$(basename "${DIR}")"                 # e.g. software
+
+          # 2) Arduino kuralı: klasör adı == .ino adı olmalı.
+          #    Eğer değilse, geçici klasör oluşturup içeriği oraya taşı/yeniden adlandır.
+          if [[ "${BASE}" != "${FOLDER}" ]]; then
+            echo "Folder '${FOLDER}' and sketch name '${BASE}' mismatch. Normalizing..."
+            TMP=".github/arduino_build/${BASE}"
+            rm -rf "${TMP}"
+            mkdir -p "${TMP}"
+
+            # Kaynak klasörün tamamını kopyala (diğer .h/.cpp dosyaları da gelsin)
+            cp -r "${DIR}/"* "${TMP}/" 2>/dev/null || true
+
+            # Ana .ino'yu doğru ada çevir
+            mv "${TMP}/${FILE}" "${TMP}/${BASE}.ino"
+
+            SKETCH_DIR="${TMP}"
+          else
+            # Klasör ve .ino adı zaten uyumlu → direkt klasörü kullan
+            SKETCH_DIR="${DIR}"
+          fi
+
+          echo "Compiling sketch directory: ${SKETCH_DIR}"
+          arduino-cli compile --fqbn arduino:avr:uno "${SKETCH_DIR}"
