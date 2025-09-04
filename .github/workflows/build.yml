@@ -28,10 +28,8 @@ jobs:
       - name: Install MPU6050 library
         run: |
           arduino-cli lib update-index
-          arduino-cli lib install "MPU6050" || \
-          arduino-cli lib install --git-url https://github.com/ElectronicCats/mpu6050
+          arduino-cli lib install "MPU6050" || arduino-cli lib install --git-url https://github.com/ElectronicCats/mpu6050
 
       - name: Compile sketch (Arduino UNO)
         run: |
-          # .ino'nun olduğu klasörü hedef gösteriyoruz
-          arduino-cli compile --fqbn arduino:avr:uno ./software
+          arduino-cli compile --fqbn arduino:avr:uno ./software/main.ino
