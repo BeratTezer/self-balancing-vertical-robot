@@ -8,10 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -25,49 +22,22 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install arduino:avr
 
+      # Wire çekirdekle gelir; sadece MPU6050 kur
       - name: Install MPU6050 library
         run: |
           arduino-cli lib update-index
           arduino-cli lib install "MPU6050" || \
           arduino-cli lib install --git-url https://github.com/ElectronicCats/mpu6050
+          arduino-cli lib list | grep -i mpu6050 || (echo "MPU6050 not installed" && exit 1)
 
-      - name: Find and normalize sketch, then compile
-        shell: bash
+      # Eğer dosyan 'software/main.ino' ise, Arduino kuralına uysun diye
+      # CI içinde geçici 'software/software.ino' kopyası oluştur.
+      - name: Normalize sketch name
         run: |
-          set -euo pipefail
-
-          # 1) Depodaki ilk .ino dosyasını bul
-          INO_PATH="$(git ls-files '*.ino' | head -n1 || true)"
-          if [[ -z "${INO_PATH}" ]]; then
-            echo "No .ino file found in repository."
-            exit 1
-          fi
-          echo "Found INO: ${INO_PATH}"
-
-          DIR="$(dirname "${INO_PATH}")"
-          FILE="$(basename "${INO_PATH}")"              # e.g. main.ino
-          BASE="${FILE%.*}"                             # e.g. main
-          FOLDER="$(basename "${DIR}")"                 # e.g. software
-
-          # 2) Arduino kuralı: klasör adı == .ino adı olmalı.
-          #    Eğer değilse, geçici klasör oluşturup içeriği oraya taşı/yeniden adlandır.
-          if [[ "${BASE}" != "${FOLDER}" ]]; then
-            echo "Folder '${FOLDER}' and sketch name '${BASE}' mismatch. Normalizing..."
-            TMP=".github/arduino_build/${BASE}"
-            rm -rf "${TMP}"
-            mkdir -p "${TMP}"
-
-            # Kaynak klasörün tamamını kopyala (diğer .h/.cpp dosyaları da gelsin)
-            cp -r "${DIR}/"* "${TMP}/" 2>/dev/null || true
-
-            # Ana .ino'yu doğru ada çevir
-            mv "${TMP}/${FILE}" "${TMP}/${BASE}.ino"
-
-            SKETCH_DIR="${TMP}"
-          else
-            # Klasör ve .ino adı zaten uyumlu → direkt klasörü kullan
-            SKETCH_DIR="${DIR}"
+          if [ -f software/main.ino ] && [ ! -f software/software.ino ]; then
+            cp software/main.ino software/software.ino
           fi
 
-          echo "Compiling sketch directory: ${SKETCH_DIR}"
-          arduino-cli compile --fqbn arduino:avr:uno "${SKETCH_DIR}"
+      - name: Compile sketch (Arduino UNO)
+        run: |
+          arduino-cli compile --fqbn arduino:avr:uno ./software
