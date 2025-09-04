@@ -39,108 +39,86 @@ The **Self-Balancing Vertical Robot** is a modular research platform featuring a
 
 ## ⚙️ Hardware (BOM)
 
-| Parça        | Adet | Açıklama      | Link                                    |
-| ------------ | ---- | ------------- | --------------------------------------- |
-| ESP32 DevKit | 1    | Ana kontrolcü | [Datasheet](https://www.espressif.com/) |
-| SG90 Servo   | 4    | Aktüatör      | -                                       |
-| MPU6050      | 1    | IMU sensörü   | -                                       |
-| L298N        | 1    | Motor sürücü  | -                                       |
-| 18650 Li-ion | 2    | Güç kaynağı   | -                                       |
+| Component    | Qty | Description     | Link                                                                                                                                                    |
+| ------------ | --- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Arduino UNO  | 1   | Main controller | [Datasheet](https://docs.arduino.cc/resources/datasheets/A000066-datasheet.pdf)                                                                         |
+| Hobby Motor  | 2   | Actuator        | [Example Sale Link](https://www.botnroll.com/en/dc-motor/2975-hobby-gearmotor-200rpm-65mm-wheel.html)                                                   |
+| Motor Wheel  | 2   | Wheels          | [Example Sale Link](https://www.botnroll.com/en/dc-motor/2975-hobby-gearmotor-200rpm-65mm-wheel.html)                                                   |
+| MPU6050      | 1   | IMU sensor      | [Pinout](https://components101.com/sensors/mpu6050-module)                                                                                              |
+| L298N        | 1   | Motor driver    | [Datasheet](https://www.handsontec.com/dataspecs/L298N%20Motor%20Driver.pdf)                                                                            |
+| 18650 Li-ion | 2   | Power supply    | [Datasheet](https://www.mouser.com/datasheet/2/855/ASR00050_18650_2500mAh-3078640.pdf?srsltid=AfmBOoqWewHHNYpYeiml4Sg5m18XAfgiU2DQwppWHurnN8My09zVFvFn) |
+| Chassi       | 1   | Robot Body      | [STL File](hardware/3d-model/robot_chassi.md) & [Link](https://makerworld.com/en/models/1538080-balancing-robot-chassi#profileId-1613796)               |
 
-Daha detaylı liste: [`hardware/bom.md`](hardware/bom.md)
-
----
-
-## 🖨️ 3D Baskı
-
-- STL/STEP dosyaları: [`hardware/3d-models/`](hardware/3d-models/)
-- Önerilen baskı ayarları:
-  - Katman yüksekliği: **0.2 mm**
-  - İnfill: **%20 – %40**
-  - Malzeme: **PLA / PETG**
-
-Montaj görselleri: ![Assembly](media/images/assembly.png)
+For the extended Bill of Materials, see: [`hardware/bom.md`](hardware/bom.md)
 
 ---
 
-## 💻 Yazılım
+## 🖨️ 3D Printing
 
-📂 Kod yapısı:
+- STL/STEP files: [`hardware/3d-models/`](hardware/3d-models/)
+- Recommended printing settings:
+  - Layer height: **0.2 mm**
+  - Infill: **20–40%**
+  - Material: **PLA**
+
+---
+
+## 💻 Software
+
+📂 Project structure:
 
 ```
 software/
-├── src/
-│   ├── main.cpp
-│   ├── control.cpp
-│   └── telemetry.cpp
-├── include/
-│   ├── control.h
-│   └── config.h
-└── tests/
-    └── test_plan.md
+├── main.ino        # System initialization, setup(), loop(), main control loop (1 kHz)
 ```
 
-### 🚀 Hızlı Başlangıç
+---
 
-**PlatformIO:**
-
-```bash
-git clone https://github.com/USERNAME/ProjectName.git
-cd ProjectName/software
-pio run -t upload
-pio device monitor
-```
+### 🚀 Quick Start
 
 **Arduino IDE:**
 
-1. ESP32 kart tanımlarını yükleyin.
-2. `main.cpp` dosyasını açın.
-3. Kütüphaneleri kurun (`Wire`, `MPU6050`, `Servo`).
-4. Upload butonuna basın.
+1. Install Arduino Uno board definition.
+2. Open `src/main.cpp`.
+3. Install libraries: `Wire`, `MPU6050`.
+4. Upload to board.
 
 ---
 
-## 🧠 Algoritmalar
+## 🧠 Algorithms
 
-- **PID kontrol** → dengeleme ve hız sabitleme
-- **Sensör füzyonu** → IMU + opsiyonel kamera
-- **(Opsiyonel) SLAM** → kamera verileriyle çevre haritalama
-
----
-
-## 🧪 Testler & Sonuçlar
-
-- ⚡ Maksimum hız: 1.2 m/s
-- 🔋 Pil ömrü: ~40 dk sürekli kullanım
-- 🎯 PID açı hatası: ±2°
-- 📹 [Demo Videosu](media/videos/demo.mp4)
+- **PID Control** → Used for balancing, includes proportional, integral, and derivative terms with gyro-based derivative filtering.
+- **Complementary Filter** → Combines accelerometer and gyroscope data for stable tilt estimation.
+- **Slew Limiter** → Prevents sudden jumps in motor commands by limiting step changes.
+- **Safety Cut-off** → Motors stop if tilt exceeds `±60°` (SAFE_TILT).
 
 ---
 
-## 🗺 Yol Haritası
+## 🧪 Tests & Results
 
-- [ ] Stereo kamera ile görsel SLAM
-- [ ] Yol planlama için A\* algoritması
-- [ ] ROS2 entegrasyonu
-
----
-
-## 📚 Kaynakça
-
-- Espressif ESP32 dökümantasyonu
-- Welch & Bishop, _An Introduction to the Kalman Filter_
-- Thrun et al., _Probabilistic Robotics_
-- Ayrıntılar: [`docs/references.md`](docs/references.md)
+- ⚡ **Maximum speed**: ~1.2 m/s
+- 🔋 **Battery life**: ~40 minutes continuous use
+- 🎯 **PID tilt error**: ±2°
+- 🛠️ Includes built-in **motor self-test** and **IMU calibration** routines (run on startup).
 
 ---
 
-## 🤝 Katkı & Lisans
+## 🗺 Roadmap
 
-Katkılar memnuniyetle kabul edilir. Lütfen [CONTRIBUTING.md](CONTRIBUTING.md) dosyasına göz atın.  
-Bu proje **MIT Lisansı** altında yayınlanmıştır.
+(maybe)
+
+- [ ] Implementing path finding algorithm
+- [ ] ROS2 entegration
 
 ---
 
-## 🔖 Atıf
+## 🤝 Contribution & License
 
-Bu projeyi kullanırsanız lütfen **CITATION.cff** dosyasına göre atıf verin.
+Contributions are warmly welcomed. Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines.  
+This project is released under the **MIT License**.
+
+---
+
+## 🔖 Citation
+
+If you use this project in your work, please cite it according to the **CITATION.cff** file.

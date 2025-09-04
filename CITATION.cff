@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it as below."
+title: "Self-Balancing Vertical Robot: An Open-Source Modular Research Platform"
+version: "1.0.0"
+date-released: "2025-08-26"
+authors:
+  - family-names: "Tezer"
+    given-names: "Berat"
+repository-code: "https://github.com/BeratTezer/self-balancing-vertical-robot"
+license: "MIT"
+type: software
+keywords:
+  - robotics
+  - self-balancing
+  - Arduino
+  - IMU6050
+  - open-source
