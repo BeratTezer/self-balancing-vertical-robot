@@ -25,29 +25,13 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install arduino:avr
 
-      - name: Install MPU6050 library (Electronic Cats)
+      - name: Install MPU6050 library
         run: |
           arduino-cli lib update-index
           arduino-cli lib install "MPU6050" || \
           arduino-cli lib install --git-url https://github.com/ElectronicCats/mpu6050
 
-      - name: Prepare sketch folder
-        shell: bash
-        run: |
-          set -e
-          mkdir -p software/sketch
-          # src içindeki tüm .cpp/.h dosyalarını kopyala
-          cp -r software/src/* software/sketch/ 2>/dev/null || true
-          # include klasörü varsa kopyala (gerekirse)
-          if [ -d software/include ]; then
-            cp -r software/include/* software/sketch/ 2>/dev/null || true
-          fi
-          # main.cpp varsa .ino'ya çevir
-          if [ -f software/sketch/main.cpp ]; then
-            mv software/sketch/main.cpp software/sketch/sketch.ino
-          fi
-          echo "Sketch prepared at software/sketch"
-
       - name: Compile sketch (Arduino UNO)
         run: |
-          arduino-cli compile --fqbn arduino:avr:uno ./software/sketch
+          # .ino'nun olduğu klasörü hedef gösteriyoruz
+          arduino-cli compile --fqbn arduino:avr:uno ./software
