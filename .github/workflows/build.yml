@@ -15,21 +15,32 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Arduino CLI
         uses: arduino/setup-arduino-cli@v1
 
-      - name: Install Arduino AVR core
+      - name: Install Arduino AVR core (UNO)
         run: |
           arduino-cli core update-index
           arduino-cli core install arduino:avr
 
-      - name: Install dependencies (Wire + MPU6050 library)
+      - name: Install MPU6050 library
         run: |
-          arduino-cli lib install "Wire"
-          arduino-cli lib install "MPU6050"
+          arduino-cli lib update-index
+          arduino-cli lib install "electroniccats/MPU6050@^1.0.3"
+          # Eğer farklı kütüphane kullanıyorsan (örn. JRowberg):
+          # arduino-cli lib install --git-url https://github.com/jrowberg/i2cdevlib
 
-      - name: Compile sketch
+      - name: Compile sketch (Arduino UNO)
         run: |
+          # Ana dosyan bir .ino ise: klasörü hedef göster
+          # arduino-cli compile --fqbn arduino:avr:uno path/to/sketch_folder
+          #
+          # Repo yapına göre iki tip örnek veriyorum; birini seç:
+
+          # 1) README'deki gibi kökte .ino varsa, o klasörü ver:
+          # arduino-cli compile --fqbn arduino:avr:uno ./software
+
+          # 2) Kodların ./software/src altında ve .cpp ise, yine klasörü verebilirsin:
           arduino-cli compile --fqbn arduino:avr:uno ./software/src
