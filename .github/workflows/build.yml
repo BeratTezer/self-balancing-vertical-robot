@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Arduino CLI
+        uses: arduino/setup-arduino-cli@v1
+
+      - name: Install Arduino AVR core
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+
+      - name: Install dependencies (Wire + MPU6050 library)
+        run: |
+          arduino-cli lib install "Wire"
+          arduino-cli lib install "MPU6050"
+
+      - name: Compile sketch
+        run: |
+          arduino-cli compile --fqbn arduino:avr:uno ./software/src

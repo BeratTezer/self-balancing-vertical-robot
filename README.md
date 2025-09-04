@@ -7,7 +7,7 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/BeratTezer/self-balancing-vertical-robot/build.yml?branch=main)](https://github.com/BeratTezer/self-balancing-vertical-robot/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Citation](https://img.shields.io/badge/Cite-APA%20Style-orange)](CITATION.cff)
-[![Docs](https://img.shields.io/badge/Docs-📚-purple)](docs/)
+[![Docs](https://img.shields.io/badge/Docs-📚-purple)](https://github.com/BeratTezer/self-balancing-vertical-robot)
 
 The **Self-Balancing Vertical Robot** is a modular research platform featuring a 3D-printed chassis, low-cost electronic components, and open-source software, designed for both **academic research** and **industrial prototyping**.
 
@@ -22,7 +22,6 @@ The **Self-Balancing Vertical Robot** is a modular research platform featuring a
 - [🧠 Algorithms](#-algorithms)<br>
 - [🧪 Tests & Results](#-tests--results)<br>
 - [🗺 Roadmap](#-roadmap)<br>
-- [📚 References](#-references)<br>
 - [🤝 Contribution & License](#-contribution--license)<br>
 - [🔖 Citation](#-citation)
 
